@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper-light text-ink-light dark:bg-paper-dark dark:text-ink-dark;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+::selection {
+  background-color: #d99a5f;
+  color: #211c14;
+}
+
+:focus-visible {
+  outline: 2px solid #b5662f;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.soil-bar-fill {
+  animation: fillBar 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fillBar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
