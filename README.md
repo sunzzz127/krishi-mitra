@@ -1,19 +1,45 @@
-# Krishi Mitra
+<img width="2940" height="1734" alt="image" src="https://github.com/user-attachments/assets/f11a829a-667f-4ccd-ad90-614f808d42b1" /># Krishi Mitra
 
-A crop and soil advisor for Andhra Pradesh farmers. Pick a district, see the
-dominant soil types, and get crop recommendations with water needs and
+A crop and soil advisor for Andhra Pradesh farmers. Select a district to see
+its soil composition, crops best suited to that land, water needs, and
 sowing season.
 
-## Stack
+🔗 **Live app:** [andhra-pradesh-soil-advisor.web.app](https://andhra-pradesh-soil-advisor.web.app)
 
-Vite + React + Tailwind CSS, with Firebase wired in and ready for Firestore
-(not required to run the app as-is — data currently comes from a local seed
-file).
+<p align="center">
+  <img width="2940" height="1734" alt="image" src="https://github.com/user-attachments/assets/dbdad04f-a8ab-4956-ae65-cc6d53e04328" />
+  <img width="2940" height="1734" alt="image" src="https://github.com/user-attachments/assets/7ad033db-8e05-46db-ac37-03a6977d5bce" />
+</p>
+
+## About
+
+Most farming advisory apps in India are broad "everything for agriculture"
+tools that end up shallow on any one feature. Krishi Mitra focuses narrowly
+on one decision — soil-to-crop matching by district — with water needs and
+sowing season attached, so a farmer can check before planting, not after.
+
+Currently covers 8 districts across Andhra Pradesh's three farming zones:
+Rayalaseema, Coastal Andhra, and North Coastal/Agency.
+
+## Tech stack
+
+- **React** + **Vite** — frontend
+- **Tailwind CSS** — styling, dark mode support
+- **Firebase Hosting** — deployment
+- **Firebase** (Firestore-ready) — data layer, currently static seed data
 
 ## Getting started
 
 ```bash
+git clone https://github.com/sunzzz127/krishi-mitra.git
+cd krishi-mitra
 npm install
+```
+
+Copy `.env.example` to `.env` and fill in your own Firebase project config
+(Firebase console → Project settings → General → Your apps → SDK setup).
+
+```bash
 npm run dev
 ```
 
@@ -23,36 +49,40 @@ Opens at `http://localhost:5173`.
 
 ```
 src/
-  data/districts.js       seed data: soil mix + crops per district
+  data/districts.js       soil mix + crops per district (seed data)
   components/
-    DistrictSelector.jsx  district picker grouped by farming zone
-    CropDetail.jsx         soil bar + crop cards for the selected district
-  App.jsx                  top-level layout and state
-  firebase.js               Firebase init (Firestore), reads from .env
+    Navbar.jsx             sticky nav with dark mode toggle
+    Hero.jsx                landing section
+    DistrictSelector.jsx    zone-filtered district picker
+    CropDetail.jsx          soil bar + crop recommendation cards
+    HowItWorks.jsx          3-step explainer
+    Footer.jsx              data sourcing + disclaimer
+  hooks/useTheme.js         dark mode with system preference detection
+  firebase.js                Firebase init, reads from .env
 ```
 
-## Moving data to Firestore
+## Deploying
 
-Right now `src/data/districts.js` is a static object. To make it editable
-without redeploying:
+```bash
+npm run build
+firebase deploy
+```
 
-1. Copy `.env.example` to `.env` and fill in your Firebase project config.
-2. Create a `districts` collection in Firestore, one doc per district key,
-   matching the shape in `src/data/districts.js`.
-3. Replace the static `DISTRICTS` export with a `getDocs` call in a
-   `useEffect`/custom hook, keeping the same shape so the components don't
-   need to change.
+## Data sourcing
 
-## What's covered so far
+- Soil composition — state agriculture department district records
+- Water figures — seasonal reference ranges, ICAR-style estimates (not
+  site-specific irrigation schedules)
+- Coverage — 8 of 26 districts, expanding over time
 
-8 districts across 3 zones: Rayalaseema, Coastal Andhra, and North
-Coastal/Agency. Water figures are seasonal reference ranges, not
-site-specific irrigation schedules — flagged in the UI itself.
+## Roadmap
 
-## Natural next steps
+- [ ] Move district data from static file to Firestore
+- [ ] Expand to all 26 AP districts (post-2022 district split)
+- [ ] GPS-based district detection
+- [ ] Telugu language toggle
+- [ ] Market price data per crop (Agmarknet integration)
 
-- Expand to all 26 districts (post-2022 AP district split)
-- GPS-based district detection instead of manual selection
-- Telugu language toggle
-- Swap seasonal water ranges for ICAR crop-water-requirement tables
-- Add market price data per crop (e.g. via Agmarknet)
+## License
+
+MIT
