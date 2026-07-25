@@ -1,5 +1,3 @@
-<img width="2940" height="1734" alt="image" src="https://github.com/user-attachments/assets/f11a829a-667f-4ccd-ad90-614f808d42b1" /># Krishi Mitra
-
 A crop and soil advisor for Andhra Pradesh farmers. Select a district to see
 its soil composition, crops best suited to that land, water needs, and
 sowing season.
